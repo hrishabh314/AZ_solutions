@@ -12,8 +12,6 @@ using ordered_set = tree<T, null_type,
       less<T>, rb_tree_tag,
       tree_order_statistics_node_update>;
 
-int p;
-
 
 //----------------------fastpow----------------------
 
@@ -31,13 +29,13 @@ int power(int x, int y, int p) {  //x^y % p in logy
 
 //----------------------fastpow----------------------
 
-
+int p;
 
 int func(int a, char op, int b) {
     if (op == '+') {
         return (a + b) % p;
     } else if (op == '-') {
-        return (a - b + 2*p) % p;
+        return ((a - b) % p + p) % p;
     } else if (op == '/') {
         b = power(b, p-2, p);
     }
@@ -52,9 +50,9 @@ void solve() {
     cin >> ch >> a >> op1 >> b >> op2 >> c >> ch >> s >> p;
 
     if (op1 == '*' || op1 == '/') {
-        cout << (func(func(a, op1, b), op2, c) + 2*p) % p << '\n';
+        cout << func(func(a, op1, b), op2, c) << '\n';
     } else {
-        cout << (func(a, op1, func(b, op2, c)) + 2*p) % p << '\n';
+        cout << func(a, op1, func(b, op2, c)) << '\n';
     }
 }
 
